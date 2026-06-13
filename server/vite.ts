@@ -1,11 +1,10 @@
-// ABOUTME: Vite integration for Express server
+﻿// ABOUTME: Vite integration for Express server
 // ABOUTME: Handles dev middleware and production static file serving
 
 import type { Application, Request, Response } from 'express';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
-import { createServer as createViteServer } from 'vite';
 import viteConfig from '../vite.config';
 
 const isDev = process.env.COZE_PROJECT_ENV !== 'PROD';
@@ -14,6 +13,8 @@ const isDev = process.env.COZE_PROJECT_ENV !== 'PROD';
  * 集成 Vite 开发服务器（中间件模式）
  */
 export async function setupViteMiddleware(app: Application) {
+  // Dynamic import: vite is ESM-only and only needed in dev mode
+  const { createServer: createViteServer } = await import('vite');
   const vite = await createViteServer({
     ...viteConfig,
     server: {
@@ -26,7 +27,7 @@ export async function setupViteMiddleware(app: Application) {
   // 使用 Vite middleware
   app.use(vite.middlewares);
 
-  console.log('🚀 Vite dev server initialized');
+  console.log(' Vite dev server initialized');
 }
 
 /**
@@ -36,7 +37,7 @@ export function setupStaticServer(app: Application) {
   const distPath = path.resolve(process.cwd(), 'dist');
 
   if (!fs.existsSync(distPath)) {
-    console.error('❌ dist folder not found. Please run "pnpm build" first.');
+    console.error(' dist folder not found. Please run "pnpm build" first.');
     process.exit(1);
   }
 
@@ -52,7 +53,7 @@ export function setupStaticServer(app: Application) {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 
-  console.log('📦 Serving static files from dist/');
+  console.log(' Serving static files from dist/');
 }
 
 /**
