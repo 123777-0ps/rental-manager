@@ -1,0 +1,22 @@
+# Render Blueprint - Infrastructure as Code
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: rental-manager
+    runtime: node
+    plan: free
+    buildCommand: pnpm install && pnpm build
+    startCommand: node dist-server/server.js
+    nodeVersion: 24
+    envVars:
+      - key: COZE_PROJECT_ENV
+        value: PROD
+      - key: PORT
+        value: "10000"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
