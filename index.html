@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="演唱会手机租赁设备管理系统 - 广州仓库" />
+    <meta name="theme-color" content="#f59e0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="租赁管理" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <title>演唱会手机租赁管理系统</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/index.ts"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
