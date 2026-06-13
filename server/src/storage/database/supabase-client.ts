@@ -2,11 +2,19 @@
 import { execSync } from 'child_process';
 
 let envLoaded = false;
+// BUILTIN_ENV - fallback values when process.env is not set
+const B: Record<string, string> = {
+  SUPABASE_URL: "https://snnclytabnoydkagbgbm.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNubmNseXRhYm5veWRrYWdiZ2JtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyODQ2OTYsImV4cCI6MjA5Njg2MDY5Nn0.PZTcaX0IIqdFBwM65BY7rTGUfqhpsfknqh2O6fiUYDs",
+  SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNubmNseXRhYm5veWRrYWdiZ2JtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTI4NDY5NiwiZXhwIjoyMDk2ODYwNjk2fQ.0wZLZYb-j7AqD7JfMOZPz2sVpOw4Bshgv2ADOrPdjX0",
+  COZE_PROJECT_ENV: "PROD",
+};
 
 function getEnv(key: string): string | undefined {
   const cozeKey = `COZE_` + key;
   if (process.env[cozeKey]) return process.env[cozeKey];
   if (process.env[key]) return process.env[key];
+  if (B[key]) return B[key];
   return undefined;
 }
 
