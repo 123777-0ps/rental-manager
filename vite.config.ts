@@ -1,6 +1,4 @@
-import { defineConfig } from 'vite';
-
-export default defineConfig({
+﻿export default {
   server: {
     port: 5000,
     host: '0.0.0.0',
@@ -17,4 +15,4 @@ export default defineConfig({
       interval: 100,
     }
   },
-});
+};
