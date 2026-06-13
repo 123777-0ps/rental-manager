@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Element UI 色系 */
+  --el-primary: #409EFF;
+  --el-primary-light: #66B1FF;
+  --el-primary-lighter: #79BBFF;
+  --el-primary-light-3: #A0CFFF;
+  --el-primary-light-5: #C6E2FF;
+  --el-primary-light-7: #D9ECFF;
+  --el-primary-light-9: #ECF5FF;
+  --el-success: #67C23A;
+  --el-warning: #E6A23C;
+  --el-danger: #F56C6C;
+  --el-info: #909399;
+
+  --el-text-primary: #303133;
+  --el-text-regular: #606266;
+  --el-text-secondary: #909399;
+  --el-text-placeholder: #C0C4CC;
+
+  --el-border: #DCDFE6;
+  --el-border-light: #E4E7ED;
+  --el-border-lighter: #EBEEF5;
+  --el-border-extra-light: #F2F6FC;
+
+  --el-bg: #F5F7FA;
+  --el-bg-page: #F2F3F5;
+  --el-white: #FFFFFF;
+
+  --background: var(--el-bg-page);
+  --foreground: var(--el-text-primary);
+}
+
+body {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 25%, #ede9fe 50%, #e0e7ff 75%, #eef2ff 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* 滑入动画 */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Date input custom icons */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+  opacity: 0.8;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+/* 弹窗入场动画 */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.25s ease-out;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C0C4CC;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #909399;
+}
+
+/* 表格行动画 */
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+/* 按钮交互增强 */
+button {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* 输入框聚焦优化 - Element UI 蓝色焦点 */
+input:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.1);
+  border-color: var(--el-primary) !important;
+}
+
+/* 选择框美化 */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23909399' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* 编号等宽字体 */
+.font-mono {
+  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}
+
+/* 卡片阴影层级 */
+.shadow-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-elevated {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 玻璃卡片 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(220, 230, 250, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.glass-card-header {
+  border-bottom: 1px solid rgba(220, 230, 250, 0.5);
+  padding: 14px 18px;
+}
+
+.glass-card-body {
+  padding: 18px;
+}
+
+.module-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(220, 230, 250, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+}
+
+.module-card-header {
+  border-bottom: 1px solid rgba(220, 230, 250, 0.5);
+  padding: 12px 16px;
+}
+
+.module-card-body {
+  padding: 16px;
+}
+
+/* 头部装饰线 */
+.glass-header {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(220, 230, 250, 0.5);
+}
+
+.header-accent {
+  background: linear-gradient(135deg, #409EFF 0%, #66B1FF 50%, #A0CFFF 100%);
+}
+
+/* 表格行悬停效果 */
+.table-row-hover:hover {
+  background-color: #ECF5FF !important;
+  box-shadow: 0 2px 8px rgba(64, 158, 255, 0.08);
+}
+
+/* 状态标签微阴影 */
+.tag-shadow {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
