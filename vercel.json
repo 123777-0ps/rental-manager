@@ -1,7 +1,6 @@
-﻿{
-  "framework": null,
-  "buildCommand": "pnpm install --no-frozen-lockfile && pnpm vite build && pnpm tsup server/server.ts --format cjs --platform node --target node20 --outDir dist-server --no-splitting --no-minify --external vite",
+{
   "installCommand": "pnpm install --no-frozen-lockfile",
+  "buildCommand": "pnpm vite build && npx tsup server/server.ts --format cjs --platform node --target node20 --outDir dist-server --no-splitting --no-minify --external vite",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" },
