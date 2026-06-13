@@ -1,14 +1,11 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+﻿import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { execSync } from 'child_process';
 
 let envLoaded = false;
 
-// 兼容 COZE_ 前缀和标准环境变量名
 function getEnv(key: string): string | undefined {
-  // 优先使用 COZE_ 前缀（沙箱环境）
-  const cozeKey = `COZE_${key}`;
+  const cozeKey = `COZE_` + key;
   if (process.env[cozeKey]) return process.env[cozeKey];
-  // 其次使用标准名称（本地部署）
   if (process.env[key]) return process.env[key];
   return undefined;
 }
@@ -49,7 +46,7 @@ except Exception as e:
     print(f"# Error: {e}", file=sys.stderr)
 `;
 
-      const output = execSync(`python3 -c '${pythonCode.replace(/'/g, "'\"'\"'")}'`, {
+      const output = execSync(`python3 -c '` + pythonCode.replace(/'/g, `'"'"'`) + `'`, {
         encoding: 'utf-8',
         timeout: 10000,
         stdio: ['pipe', 'pipe', 'pipe'],
@@ -115,16 +112,20 @@ function getSupabaseClient(token?: string): SupabaseClient {
 
   const globalOptions: Record<string, any> = {};
   if (token) {
-    globalOptions.headers = { Authorization: `Bearer ${token}` };
+    globalOptions.headers = { Authorization: `Bearer ` + token };
   }
-  try {
-    const { getReportBuffer, createWrappedFetch } = require('coze-coding-dev-sdk');
-    const buffer = getReportBuffer();
-    if (buffer) {
-      globalOptions.fetch = createWrappedFetch(buffer, 'supabase');
+
+  // Coze SDK - only attempt to use if configured (non-Vercel environments)
+  if (process.env.COZE_INTEGRATION_BASE_URL && process.env.COZE_WORKLOAD_IDENTITY_API_KEY) {
+    try {
+      const { getReportBuffer, createWrappedFetch } = require('coze-coding-dev-sdk');
+      const buffer = getReportBuffer();
+      if (buffer) {
+        globalOptions.fetch = createWrappedFetch(buffer, 'supabase');
+      }
+    } catch {
+      // coze-coding-dev-sdk not available or misconfigured
     }
-  } catch {
-    // coze-coding-dev-sdk not available (local deployment)
   }
 
   return createClient(url, key, {
